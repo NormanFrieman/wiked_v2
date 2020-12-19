@@ -1,9 +1,31 @@
 #include <stdio.h>
 #include "wiked.h"
 #include "Editores/editor.h"
+#include "Paginas/paginas.h"
 
 ListaGen* INSEREEDITOR(ListaGen *lista, char *editor){
     lista = insereEditor(lista, editor);
 
     return lista;
+}
+
+ListaGen* INSEREPAGINA(ListaGen *lista, char *pagina, char *arquivo){
+    lista = inserePagina(lista, pagina, arquivo);
+
+    return lista;
+}
+
+ListaGen* RETIRAPAGINA(ListaGen *lista, char *pagina){
+    lista = retiraPagina(lista, pagina);
+
+    return lista;
+}
+/*
+ListaGen* INSERECONTRIBUICAO(ListaGen *lista, char *editor, char *arquivo){
+    lista = insereContribuicao(lista, editor, arquivo);
+}
+*/
+void FIM(ListaGen *editores, ListaGen *paginas){
+    liberaLista(editores, NULL);
+    liberaPagina(paginas);
 }

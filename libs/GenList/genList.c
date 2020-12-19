@@ -37,11 +37,11 @@ ListaGen* insereLista(ListaGen *lista, void *item){
     return lista;
 }
 
-ListaGen* retiraLista(ListaGen *lista, int (*comparacao)(void *, void *), void *key){
+ListaGen* retiraLista(ListaGen *lista, int (*comparacao)(void *, void *), void (*liberaItem)(void *), void *key){
     Celula *p = lista->Prim;
     Celula *ant = NULL;
 
-    while(p != NULL && comparacao(p->item, key)){
+    while(p != NULL && comparacao(p->item, key) != 1){
         ant = p;
         p = p->prox;
     }
@@ -54,8 +54,26 @@ ListaGen* retiraLista(ListaGen *lista, int (*comparacao)(void *, void *), void *
     else
         ant->prox = p->prox;
     
+    if(liberaItem != NULL)
+        liberaItem(p->item);
     free(p);
+
     return lista;
+}
+
+void* verificaLista(ListaGen *lista, int (*comparacao)(void *, void *), void *key){
+    Celula *p = lista->Prim;
+    Celula *ant = NULL;
+
+    while(p != NULL && comparacao(p->item, key) != 1){
+        ant = p;
+        p = p->prox;
+    }
+
+    if(p == NULL)
+        return NULL;
+
+    return p->item;
 }
 
 void imprimeLista(ListaGen *lista, void (*imprime)(void *)){
@@ -67,13 +85,15 @@ void imprimeLista(ListaGen *lista, void (*imprime)(void *)){
     }
 }
 
-void liberaLista(ListaGen *lista){
+void liberaLista(ListaGen *lista, void (*liberaItem)(void *)){
     Celula *p = lista->Prim;
     Celula *ant = NULL;
 
     while(p != NULL){
         ant = p;
         p = p->prox;
+        if(liberaItem != NULL)
+            liberaItem(ant->item);
         free(ant);
     }
 

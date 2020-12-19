@@ -21,7 +21,7 @@ static void imprimeEditores(void *item){
 ListaGen* insereEditor(ListaGen *lista, char *editor){
     lista = insereLista(lista, editor);
 
-    printf("Editores:\n");
+    printf("\nEditores:\n");
     imprimeLista(lista, imprimeEditores);
 
     return lista;

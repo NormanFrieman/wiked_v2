@@ -4,15 +4,28 @@
 
 int main(int argc, char *argv[]){
     ListaGen *listaEditores = criaLista();
+    ListaGen *listaPaginas = criaLista();
 
     int num1 = 1, num2 = 2;
 
+    printf("\nINSEREEDITOR");
     listaEditores = INSEREEDITOR(listaEditores, "rob");
+    printf("\nINSEREEDITOR");
     listaEditores = INSEREEDITOR(listaEditores, "rob2");
 
-    
+    printf("\nINSEREPAGINA");
+    listaPaginas = INSEREPAGINA(listaPaginas, "Fisica", "fisica.txt");
+    printf("\nINSEREPAGINA");
+    listaPaginas = INSEREPAGINA(listaPaginas, "Fisica", "fisica.txt");
+    printf("\nINSEREPAGINA");
+    listaPaginas = INSEREPAGINA(listaPaginas, "Matematica", "matematica.txt");
+    printf("\nINSEREPAGINA");
+    listaPaginas = INSEREPAGINA(listaPaginas, "Artes", "artes.txt");
 
-    liberaLista(listaEditores);
+    printf("\nRETIRAPAGINA");
+    listaPaginas = RETIRAPAGINA(listaPaginas, "Matematica");
+
+    FIM(listaEditores, listaPaginas);
 
     return 0;
 }
