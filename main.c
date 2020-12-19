@@ -1,22 +1,18 @@
 #include <stdio.h>
 #include "libs/GenList/genList.h"
-
-void imprime(void *dados){
-    int *num = (int *)dados;
-    printf("num: %d\n", *num);
-}
+#include "libs/Wiked/wiked.h"
 
 int main(int argc, char *argv[]){
-    ListaGen *lista = criaLista();
+    ListaGen *listaEditores = criaLista();
 
     int num1 = 1, num2 = 2;
 
-    lista = insereLista(lista, &num1);
-    lista = insereLista(lista, &num2);
+    listaEditores = INSEREEDITOR(listaEditores, "rob");
+    listaEditores = INSEREEDITOR(listaEditores, "rob2");
 
-    imprimeLista(lista, imprime);
+    
 
-    liberaLista(lista);
+    liberaLista(listaEditores);
 
     return 0;
 }
