@@ -86,16 +86,18 @@ void imprimeLista(ListaGen *lista, void (*imprime)(void *)){
 }
 
 void liberaLista(ListaGen *lista, void (*liberaItem)(void *)){
-    Celula *p = lista->Prim;
-    Celula *ant = NULL;
+    if(lista != NULL){
+        Celula *p = lista->Prim;
+        Celula *ant = NULL;
+        
+        while(p != NULL){
+            ant = p;
+            p = p->prox;
+            if(liberaItem != NULL)
+                liberaItem(ant->item);
+            free(ant);
+        }
 
-    while(p != NULL){
-        ant = p;
-        p = p->prox;
-        if(liberaItem != NULL)
-            liberaItem(ant->item);
-        free(ant);
+        free(lista);
     }
-
-    free(lista);
 }

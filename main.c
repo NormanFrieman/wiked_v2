@@ -16,14 +16,17 @@ int main(int argc, char *argv[]){
     printf("\nINSEREPAGINA");
     listaPaginas = INSEREPAGINA(listaPaginas, "Fisica", "fisica.txt");
     printf("\nINSEREPAGINA");
-    listaPaginas = INSEREPAGINA(listaPaginas, "Fisica", "fisica.txt");
-    printf("\nINSEREPAGINA");
     listaPaginas = INSEREPAGINA(listaPaginas, "Matematica", "matematica.txt");
     printf("\nINSEREPAGINA");
     listaPaginas = INSEREPAGINA(listaPaginas, "Artes", "artes.txt");
 
     printf("\nRETIRAPAGINA");
     listaPaginas = RETIRAPAGINA(listaPaginas, "Matematica");
+
+    printf("\nINSERECONTRIBUICAO");
+    listaPaginas = INSERECONTRIBUICAO(listaPaginas, listaEditores, "Artes", "rob", "artes.txt");
+    printf("\nINSERECONTRIBUICAO");
+    listaPaginas = INSERECONTRIBUICAO(listaPaginas, listaEditores, "Artes", "rob", "artes.txt");
 
     FIM(listaEditores, listaPaginas);
 

@@ -2,14 +2,14 @@
 #define GenStruct_h
 
 #include <stdio.h>
+#include "../../../GenList/genList.h"
 
-// GenStruct = Estrutura Genérica
-typedef struct genstruct GenStruct;
+int insereItem(ListaGen *lista, char *nome, char *info);
 
-GenStruct* criaGenStruct(char *nome, char *info);
+int retiraItem(ListaGen *lista, char *nome);
 
-char* retornaNomeGenStruct(GenStruct *generic);
+void imprimeItens(ListaGen *lista);
 
-void destroiGenStruct(GenStruct *generic);
+void destroiGenStruct(ListaGen *lista);
 
 #endif

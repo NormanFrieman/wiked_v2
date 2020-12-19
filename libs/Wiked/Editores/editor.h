@@ -6,4 +6,6 @@
 
 ListaGen* insereEditor(ListaGen *lista, char *editor);
 
+int verificaEditor(ListaGen *lista, char *nome);
+
 #endif

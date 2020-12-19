@@ -8,7 +8,7 @@ ListaGen* inserePagina(ListaGen *lista, char *pagina, char *arquivo);
 
 ListaGen* retiraPagina(ListaGen *lista, char *pagina);
 
-//ListaGen* insereContribuicao(ListaGen *lista, char *editor, char *arquivo);
+ListaGen* insereContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo);
 
 void liberaPagina(ListaGen *lista);
 

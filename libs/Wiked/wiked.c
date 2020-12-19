@@ -20,11 +20,11 @@ ListaGen* RETIRAPAGINA(ListaGen *lista, char *pagina){
 
     return lista;
 }
-/*
-ListaGen* INSERECONTRIBUICAO(ListaGen *lista, char *editor, char *arquivo){
-    lista = insereContribuicao(lista, editor, arquivo);
+
+ListaGen* INSERECONTRIBUICAO(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo){
+    lista = insereContribuicao(lista, editores, pagina, editor, arquivo);
 }
-*/
+
 void FIM(ListaGen *editores, ListaGen *paginas){
     liberaLista(editores, NULL);
     liberaPagina(paginas);

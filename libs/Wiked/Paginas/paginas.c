@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include "string.h"
 #include "paginas.h"
 #include "GenStruct/genStruct.h"
+#include "../Editores/editor.h"
 
 typedef struct pagina Pagina;
 
@@ -33,6 +34,10 @@ static int comparaPagina(void *item1, void *item2){
 static void destroiPagina(void *item){
     Pagina *pag = (Pagina *)item;
     
+    destroiGenStruct(pag->historico);
+    destroiGenStruct(pag->contribuicoes);
+    destroiGenStruct(pag->links);
+
     free(pag->nome);
     free(pag->outfile);
     free(pag);
@@ -40,9 +45,7 @@ static void destroiPagina(void *item){
 // ===============  ===============
 
 ListaGen* inserePagina(ListaGen *lista, char *pagina, char *arquivo){
-    Pagina *test = verificaLista(lista, comparaPagina, pagina);
-
-    if(test != NULL){
+    if(verificaLista(lista, comparaPagina, pagina) != NULL){
         printf("ERROR: PAGINA %s JA EXISTE\n", pagina);
         return lista;
     }
@@ -64,6 +67,11 @@ ListaGen* inserePagina(ListaGen *lista, char *pagina, char *arquivo){
 }
 
 ListaGen* retiraPagina(ListaGen *lista, char *pagina){
+    if(verificaLista(lista, comparaPagina, pagina) == NULL){
+        printf("ERROR: PAGINA %s NAO EXISTE\n", pagina);
+        return lista;
+    }
+
     lista = retiraLista(lista, comparaPagina, destroiPagina, pagina);
 
     printf("\nPaginas:\n");
@@ -71,18 +79,31 @@ ListaGen* retiraPagina(ListaGen *lista, char *pagina){
 
     return lista;
 }
-/*
-ListaGen* insereContribuicao(ListaGen *lista, char *editor, char *arquivo){    
-    GenStruct *novaStruct = criaGenStruct(arquivo, editor);
 
-    if(lista->contribuicoes == NULL)
-        lista->contribuicoes = criaLista();
+ListaGen* insereContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo){
+    Pagina *pag = verificaLista(lista, comparaPagina, pagina);
+    if(pag == NULL){
+        printf("ERROR: PAGINA %s NAO EXISTE\n", pagina);
+        return lista;
+    }
 
-    lista->contribuicoes = insereLista(lista->contribuicoes, novaStruct);
+    if(verificaEditor(editores, editor) == 0){
+        printf("ERROR: EDITOR %s NAO EXISTE\n", editor);
+        return 0;
+    }
+
+    if(pag->contribuicoes == NULL)
+        pag->contribuicoes = criaLista();
+
+    if(insereItem(pag->contribuicoes, arquivo, editor) == 0)
+        printf("ERROR: CONTRIBUICAO %s JA EXISTE\n", arquivo);
+    
+    printf("\nContribuicoes de %s\n", pagina);
+    imprimeItens(pag->contribuicoes);
 
     return lista;
 }
-*/
+
 void liberaPagina(ListaGen *lista){
     liberaLista(lista, destroiPagina);
 }

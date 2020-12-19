@@ -10,7 +10,7 @@ ListaGen* INSEREPAGINA(ListaGen *lista, char *pagina, char *arquivo);
 
 ListaGen* RETIRAPAGINA(ListaGen *lista, char *pagina);
 
-//ListaGen* INSERECONTRIBUICAO(ListaGen *lista, char *editor, char *arquivo);
+ListaGen* INSERECONTRIBUICAO(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo);
 
 void FIM(ListaGen *editores, ListaGen *paginas);
 
@@ -18,9 +18,9 @@ void FIM(ListaGen *editores, ListaGen *paginas);
 
 /*
 INSEREPAGINA                OK!
-RETIRAPAGINA                QUASE OK! (falta contribuicao, link e historico)
+RETIRAPAGINA                OK!
 INSEREEDITOR                OK!
-INSERECONTRIBUICAO          
+INSERECONTRIBUICAO          OK!
 RETIRACONTRIBUICAO
 INSERELINK
 RETIRALINK
