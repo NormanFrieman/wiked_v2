@@ -54,10 +54,19 @@ int insereItem(ListaGen *lista, char *nome, char *info, int ignore){
     return 1;
 }
 
-int retiraItem(ListaGen *lista, char *nome){
-    if(verificaLista(lista, comparaItem, nome) != NULL)
+// verificaInfo -> verifica se o char info é igual ao info da estrutura Generic
+// return 0 -> nao existe
+// return 1 -> removido
+// return -1 -> nao possui permissao
+int retiraItem(ListaGen *lista, char *nome, char *info, int verificaInfo){
+    Generic *gen = verificaLista(lista, comparaItem, nome);
+    if(gen == NULL)
         return 0;
     
+    if(verificaInfo == 1)
+        if(strcmp(gen->info, info) != 0)
+            return -1;
+
     lista = retiraLista(lista, comparaItem, destroiItem, nome);
 
     return 1;

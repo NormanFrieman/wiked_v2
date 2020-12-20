@@ -114,6 +114,35 @@ ListaGen* insereContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, 
     return lista;
 }
 
+ListaGen* retiraContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo){
+    Pagina *pag = verificaLista(lista, comparaPagina, pagina);
+    if(pag == NULL){
+        printf("ERROR: PAGINA %s NAO EXISTE\n", pagina);
+        return lista;
+    }
+
+    if(verificaEditor(editores, editor) == 0){
+        printf("ERROR: EDITOR %s NAO EXISTE\n", editor);
+        return 0;
+    }
+
+    int condition = retiraItem(pag->contribuicoes, arquivo, editor, 1);
+
+    if(condition == 0){
+        printf("ERROR: CONTRIBUICAO %s NAO EXISTE NA PAGINA %s\n", arquivo, pagina);
+    }else if(condition == -1){
+        printf("ERROR: EDITOR %s NAO TEM PERMISSAO PARA REMOVER A CONTRIBUICAO %s\n", editor, arquivo);
+    }
+
+    printf("Contribuicoes em %s\n", pagina);
+    imprimeItens(pag->contribuicoes);
+
+    printf("Historico de %s\n", pagina);
+    imprimeItens(pag->historico);
+
+    return lista;
+}
+
 void liberaPagina(ListaGen *lista){
     liberaLista(lista, destroiPagina);
 }

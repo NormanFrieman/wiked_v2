@@ -44,6 +44,17 @@ void InsereContribuicao(ListaGen *paginas, ListaGen *editores, FILE *file){
     paginas = INSERECONTRIBUICAO(paginas, editores, pagina, editor, arquivo);
 }
 
+void RetiraContribuicao(ListaGen *paginas, ListaGen *editores, FILE *file){
+    char pagina[60], editor[60], arquivo[60];
+
+    fscanf(file, "%s", pagina);
+    fscanf(file, "%s", editor);
+    fscanf(file, "%s", arquivo);
+    printf("\n---> RETIRACONTRIBUICAO %s %s %s\n", pagina, editor, arquivo);
+    
+    paginas = RETIRACONTRIBUICAO(paginas, editores, pagina, editor, arquivo);
+}
+
 void Fim(ListaGen *paginas, ListaGen *editores){
     printf("\n---> FIM\n");
     FIM(editores, paginas);
@@ -92,6 +103,9 @@ void interpretarComando(ListaGen *paginas, ListaGen *editores, char *url){
             else if(strcmp("INSERECONTRIBUICAO", comand) == 0)
                 InsereContribuicao(paginas, editores, file);
             
+            else if(strcmp("RETIRACONTRIBUICAO", comand) == 0)
+                RetiraContribuicao(paginas, editores, file);
+
             else if(strcmp("FIM", comand) == 0){
                 Fim(paginas, editores);
                 break;

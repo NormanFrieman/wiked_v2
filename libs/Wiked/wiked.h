@@ -12,6 +12,8 @@ ListaGen* RETIRAPAGINA(ListaGen *lista, char *pagina);
 
 ListaGen* INSERECONTRIBUICAO(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo);
 
+ListaGen* RETIRACONTRIBUICAO(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo);
+
 void FIM(ListaGen *editores, ListaGen *paginas);
 
 #endif
