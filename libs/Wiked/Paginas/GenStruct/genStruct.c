@@ -32,14 +32,17 @@ static void destroiItem(void *item){
 static void imprimeItem(void *item){
     Generic *gen = (Generic *)item;
 
-    printf("  |-> Arquivo: %s\n", gen->nome);
-    printf("  |-> Editor: %s\n", gen->info);
+    printf("  |-> priority: %s\n", gen->nome);
+    printf("  |-> info: %s\n", gen->info);
 }
 // ===============  ===============
 
-int insereItem(ListaGen *lista, char *nome, char *info){
-    if(verificaLista(lista, comparaItem, nome) != NULL)
-        return 0;
+// ignore -> define se é pra ignorar a existencia do item na lista ou não
+int insereItem(ListaGen *lista, char *nome, char *info, int ignore){
+    if(ignore == 0)
+        if(verificaLista(lista, comparaItem, nome) != NULL)
+            return 0;
+    
     
     Generic *novaGen = (Generic *)malloc(sizeof(Generic));
 

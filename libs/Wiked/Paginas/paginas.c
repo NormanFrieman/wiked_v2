@@ -94,12 +94,22 @@ ListaGen* insereContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, 
 
     if(pag->contribuicoes == NULL)
         pag->contribuicoes = criaLista();
-
-    if(insereItem(pag->contribuicoes, arquivo, editor) == 0)
-        printf("ERROR: CONTRIBUICAO %s JA EXISTE\n", arquivo);
     
-    printf("Contribuicoes de %s\n", pagina);
+    if(pag->historico == NULL)
+        pag->historico = criaLista();
+
+    if(insereItem(pag->contribuicoes, arquivo, editor, 0) == 0){
+        printf("ERROR: CONTRIBUICAO %s JA EXISTE NA PAGINA %s\n", arquivo, pagina);
+        return lista;
+    }
+
+    insereItem(pag->historico, editor, arquivo, 1);
+
+    printf("Contribuicoes em %s\n", pagina);
     imprimeItens(pag->contribuicoes);
+
+    printf("Historico de %s\n", pagina);
+    imprimeItens(pag->historico);
 
     return lista;
 }
