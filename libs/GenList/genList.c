@@ -64,7 +64,7 @@ ListaGen* retiraLista(ListaGen *lista, int (*comparacao)(void *, void *), void (
 void* verificaLista(ListaGen *lista, int (*comparacao)(void *, void *), void *key){
     Celula *p = lista->Prim;
     Celula *ant = NULL;
-
+    
     while(p != NULL && comparacao(p->item, key) != 1){
         ant = p;
         p = p->prox;

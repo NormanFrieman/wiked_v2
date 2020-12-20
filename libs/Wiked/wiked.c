@@ -26,6 +26,6 @@ ListaGen* INSERECONTRIBUICAO(ListaGen *lista, ListaGen *editores, char *pagina, 
 }
 
 void FIM(ListaGen *editores, ListaGen *paginas){
-    liberaLista(editores, NULL);
+    liberaEditores(editores);
     liberaPagina(paginas);
 }

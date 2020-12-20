@@ -8,4 +8,6 @@ ListaGen* insereEditor(ListaGen *lista, char *editor);
 
 int verificaEditor(ListaGen *lista, char *nome);
 
+void liberaEditores(ListaGen *lista);
+
 #endif

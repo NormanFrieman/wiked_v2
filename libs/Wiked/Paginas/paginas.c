@@ -60,7 +60,7 @@ ListaGen* inserePagina(ListaGen *lista, char *pagina, char *arquivo){
 
     lista = insereLista(lista, novaPagina);
 
-    printf("\nPaginas:\n");
+    printf("Paginas:\n");
     imprimeLista(lista, imprimePagina);
 
     return lista;
@@ -74,7 +74,7 @@ ListaGen* retiraPagina(ListaGen *lista, char *pagina){
 
     lista = retiraLista(lista, comparaPagina, destroiPagina, pagina);
 
-    printf("\nPaginas:\n");
+    printf("Paginas:\n");
     imprimeLista(lista, imprimePagina);
 
     return lista;
@@ -98,7 +98,7 @@ ListaGen* insereContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, 
     if(insereItem(pag->contribuicoes, arquivo, editor) == 0)
         printf("ERROR: CONTRIBUICAO %s JA EXISTE\n", arquivo);
     
-    printf("\nContribuicoes de %s\n", pagina);
+    printf("Contribuicoes de %s\n", pagina);
     imprimeItens(pag->contribuicoes);
 
     return lista;
