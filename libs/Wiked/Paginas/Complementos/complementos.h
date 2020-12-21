@@ -12,7 +12,8 @@
 
 ListaGen* insereComplemento(ListaGen *lista, char *pagina, char *nome, char *info, int code);
 
-
 ListaGen* retiraComplemento(ListaGen *lista, char *pagina, char *nome, char *info, int code);
+
+void liberaComplemento(ListaGen *lista);
 
 #endif

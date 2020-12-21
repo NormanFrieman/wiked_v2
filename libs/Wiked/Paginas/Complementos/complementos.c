@@ -88,4 +88,8 @@ ListaGen* retiraComplemento(ListaGen *lista, char *pagina, char *nome, char *inf
     else
         lista = retiraLink(lista, nome, info);
 }
+
+void liberaComplemento(ListaGen *lista){
+    destroiGenStruct(lista);
+}
 // ===============  ===============

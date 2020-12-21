@@ -34,6 +34,9 @@ static int comparaPagina(void *item1, void *item2){
 static void destroiPagina(void *item){
     Pagina *pag = (Pagina *)item;
 
+    liberaComplemento(pag->contribuicoes);
+    liberaComplemento(pag->historico);
+
     free(pag->nome);
     free(pag->outfile);
     free(pag);
