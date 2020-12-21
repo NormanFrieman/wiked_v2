@@ -130,6 +130,11 @@ int main(int argc, char *argv[]){
 
     eraseInput();
 
+    if(argv[1] == NULL){
+        printf("ERROR: ARQUIVO DE ENTRADA NAO INFORMADO\n");
+        return 0;
+    }
+    
     url = setInput(argv[1]);
     interpretarComando(paginas, editores, url);
 

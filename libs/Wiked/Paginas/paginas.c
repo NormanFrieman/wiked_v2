@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "string.h"
 #include "paginas.h"
-#include "GenStruct/genStruct.h"
 #include "../Editores/editor.h"
+#include "Complementos/complementos.h"
 
 typedef struct pagina Pagina;
 
@@ -33,10 +33,6 @@ static int comparaPagina(void *item1, void *item2){
 }
 static void destroiPagina(void *item){
     Pagina *pag = (Pagina *)item;
-    
-    destroiGenStruct(pag->historico);
-    destroiGenStruct(pag->contribuicoes);
-    destroiGenStruct(pag->links);
 
     free(pag->nome);
     free(pag->outfile);
@@ -92,24 +88,8 @@ ListaGen* insereContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, 
         return 0;
     }
 
-    if(pag->contribuicoes == NULL)
-        pag->contribuicoes = criaLista();
-    
-    if(pag->historico == NULL)
-        pag->historico = criaLista();
-
-    if(insereItem(pag->contribuicoes, arquivo, editor, 0) == 0){
-        printf("ERROR: CONTRIBUICAO %s JA EXISTE NA PAGINA %s\n", arquivo, pagina);
-        return lista;
-    }
-
-    insereItem(pag->historico, editor, arquivo, 1);
-
-    printf("Contribuicoes em %s\n", pagina);
-    imprimeItens(pag->contribuicoes);
-
-    printf("Historico de %s\n", pagina);
-    imprimeItens(pag->historico);
+    pag->contribuicoes = insereComplemento(pag->contribuicoes, pagina, arquivo, editor, 0);
+    pag->historico = insereComplemento(pag->historico, pagina, arquivo, editor, 1);
 
     return lista;
 }
@@ -126,19 +106,7 @@ ListaGen* retiraContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, 
         return 0;
     }
 
-    int condition = retiraItem(pag->contribuicoes, arquivo, editor, 1);
-
-    if(condition == 0){
-        printf("ERROR: CONTRIBUICAO %s NAO EXISTE NA PAGINA %s\n", arquivo, pagina);
-    }else if(condition == -1){
-        printf("ERROR: EDITOR %s NAO TEM PERMISSAO PARA REMOVER A CONTRIBUICAO %s\n", editor, arquivo);
-    }
-
-    printf("Contribuicoes em %s\n", pagina);
-    imprimeItens(pag->contribuicoes);
-
-    printf("Historico de %s\n", pagina);
-    imprimeItens(pag->historico);
+    pag->contribuicoes = retiraComplemento(pag->contribuicoes, pagina, arquivo, editor, 0);
 
     return lista;
 }

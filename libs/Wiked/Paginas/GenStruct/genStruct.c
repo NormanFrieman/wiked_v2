@@ -12,11 +12,20 @@ struct generic{
 };
 
 // =============== FUNCOES AUXILIARES ===============
-static int comparaItem(void *item1, void *item2){
+static int comparaNome(void *item1, void *item2){
     Generic *gen = (Generic *)item1;
     char *item = (char *)item2;
     
     if(strcmp(gen->nome, item) == 0)
+        return 1;
+    
+    return 0;
+}
+static int comparaInfo(void *item1, void *item2){
+    Generic *gen = (Generic *)item1;
+    char *item = (char *)item2;
+    
+    if(strcmp(gen->info, item) == 0)
         return 1;
     
     return 0;
@@ -40,9 +49,8 @@ static void imprimeItem(void *item){
 // ignore -> define se é pra ignorar a existencia do item na lista ou não
 int insereItem(ListaGen *lista, char *nome, char *info, int ignore){
     if(ignore == 0)
-        if(verificaLista(lista, comparaItem, nome) != NULL)
+        if(verificaLista(lista, comparaNome, nome) != NULL)
             return 0;
-    
     
     Generic *novaGen = (Generic *)malloc(sizeof(Generic));
 
@@ -59,7 +67,7 @@ int insereItem(ListaGen *lista, char *nome, char *info, int ignore){
 // return 1 -> removido
 // return -1 -> nao possui permissao
 int retiraItem(ListaGen *lista, char *nome, char *info, int verificaInfo){
-    Generic *gen = verificaLista(lista, comparaItem, nome);
+    Generic *gen = verificaLista(lista, comparaNome, nome);
     if(gen == NULL)
         return 0;
     
@@ -67,7 +75,7 @@ int retiraItem(ListaGen *lista, char *nome, char *info, int verificaInfo){
         if(strcmp(gen->info, info) != 0)
             return -1;
 
-    lista = retiraLista(lista, comparaItem, destroiItem, nome);
+    lista = retiraLista(lista, comparaNome, destroiItem, nome);
 
     return 1;
 }
