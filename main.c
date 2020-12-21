@@ -66,6 +66,17 @@ void InsereLink(ListaGen *paginas, FILE *file){
     paginas = INSERELINK(paginas, pagOrigem, pagDestino);
 }
 
+void RetiraLink(ListaGen *paginas, FILE *file){
+    char pagOrigem[60], pagDestino[60];
+
+    fscanf(file, "%s", pagOrigem);
+    fscanf(file, "%s", pagDestino);
+
+    printf("\n---> RETIRALINK %s %s\n", pagOrigem, pagDestino);
+    
+    paginas = RETIRALINK(paginas, pagOrigem, pagDestino);
+}
+
 void Fim(ListaGen *paginas, ListaGen *editores){
     printf("\n---> FIM\n");
     FIM(editores, paginas);
@@ -119,6 +130,9 @@ void interpretarComando(ListaGen *paginas, ListaGen *editores, char *url){
             
             else if(strcmp("INSERELINK", comand) == 0)
                 InsereLink(paginas, file);
+
+            else if(strcmp("RETIRALINK", comand) == 0)
+                RetiraLink(paginas, file);
 
             else if(strcmp("FIM", comand) == 0){
                 Fim(paginas, editores);

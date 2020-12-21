@@ -16,6 +16,8 @@ ListaGen* RETIRACONTRIBUICAO(ListaGen *lista, ListaGen *editores, char *pagina, 
 
 ListaGen* INSERELINK(ListaGen *lista, char *pagOrigem, char *pagDestino);
 
+ListaGen* RETIRALINK(ListaGen *lista, char *pagOrigem, char *pagDestino);
+
 void FIM(ListaGen *editores, ListaGen *paginas);
 
 #endif
@@ -23,12 +25,12 @@ void FIM(ListaGen *editores, ListaGen *paginas);
 /*
 escreverLog                 OK!
 INSEREPAGINA                OK!
-RETIRAPAGINA                OK!
+RETIRAPAGINA                quase OK! 
 INSEREEDITOR                OK!
 INSERECONTRIBUICAO          OK!
 RETIRACONTRIBUICAO          OK!
-INSERELINK
-RETIRALINK
+INSERELINK                  OK!
+RETIRALINK                  OK!
 CAMINHO
 IMPRIMEPAGINA
 IMPRIMEWIKED

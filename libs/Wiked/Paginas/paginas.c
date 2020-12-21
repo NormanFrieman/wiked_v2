@@ -133,6 +133,24 @@ ListaGen* insereLink(ListaGen *lista, char *pagOrigem, char *pagDestino){
     return lista;
 }
 
+ListaGen* retiraLink(ListaGen *lista, char *pagOrigem, char *pagDestino){
+    Pagina *pagOri = verificaLista(lista, comparaPagina, pagOrigem);
+    if(pagOri == NULL){
+        escreverLog("ERROR: PAGINA ORIGEM NAO EXISTE:", pagOrigem, NULL);
+        return lista;
+    }
+
+    Pagina *pagDest = verificaLista(lista, comparaPagina, pagDestino);
+    if(pagDest == NULL){
+        escreverLog("ERROR: PAGINA DESTINO NAO EXISTE:", pagDestino, NULL);
+        return lista;
+    }
+
+    pagOri->links = retiraComplemento(pagOri->links, NULL, pagOrigem, pagDestino, 2);
+
+    return lista;
+}
+
 void liberaPagina(ListaGen *lista){
     liberaLista(lista, destroiPagina);
 }

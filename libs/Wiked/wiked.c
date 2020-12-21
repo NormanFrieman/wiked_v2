@@ -39,6 +39,12 @@ ListaGen* INSERELINK(ListaGen *lista, char *pagOrigem, char *pagDestino){
     return lista;
 }
 
+ListaGen* RETIRALINK(ListaGen *lista, char *pagOrigem, char *pagDestino){
+    lista = retiraLink(lista, pagOrigem, pagDestino);
+
+    return lista;
+}
+
 void FIM(ListaGen *editores, ListaGen *paginas){
     liberaEditores(editores);
     liberaPagina(paginas);

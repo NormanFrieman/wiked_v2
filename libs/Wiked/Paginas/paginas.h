@@ -14,6 +14,8 @@ ListaGen* retiraContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, 
 
 ListaGen* insereLink(ListaGen *lista, char *pagOrigem, char *pagDestino);
 
+ListaGen* retiraLink(ListaGen *lista, char *pagOrigem, char *pagDestino);
+
 void liberaPagina(ListaGen *lista);
 
 #endif

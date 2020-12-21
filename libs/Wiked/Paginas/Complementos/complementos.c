@@ -59,7 +59,7 @@ static ListaGen* insereL(ListaGen *lista, char *nome, char *info){
     if(lista == NULL)
         lista = criaLista();
     
-    if(insereItem(lista, nome, info, 0) == 0)
+    if(insereItem(lista, info, nome, 0) == 0)
         escreverLog("ERROR: LINK JA EXISTE NA PAGINA:", nome, NULL);
     
     else{
@@ -70,6 +70,16 @@ static ListaGen* insereL(ListaGen *lista, char *nome, char *info){
     return lista;
 }
 static ListaGen* retiraL(ListaGen *lista, char *nome, char *info){
+    int condition = retiraItem(lista, info, nome, 0);
+    printf("%s\n", nome);
+    if(condition == 0)
+        escreverLog("ERROR: LINK NAO EXISTE ENTRE ESSAS PAGINAS:", nome, info);
+
+    else{
+        printf("Links em %s\n", nome);
+        imprimeItens(lista);
+    }
+
     return lista;
 }
 // ===============  ===============
