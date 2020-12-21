@@ -25,7 +25,7 @@ void FIM(ListaGen *editores, ListaGen *paginas);
 /*
 escreverLog                 OK!
 INSEREPAGINA                OK!
-RETIRAPAGINA                quase OK! 
+RETIRAPAGINA                OK! 
 INSEREEDITOR                OK!
 INSERECONTRIBUICAO          OK!
 RETIRACONTRIBUICAO          OK!
@@ -34,5 +34,5 @@ RETIRALINK                  OK!
 CAMINHO
 IMPRIMEPAGINA
 IMPRIMEWIKED
-FIM
+FIM                         OK!
 */
