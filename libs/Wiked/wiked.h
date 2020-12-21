@@ -14,11 +14,14 @@ ListaGen* INSERECONTRIBUICAO(ListaGen *lista, ListaGen *editores, char *pagina, 
 
 ListaGen* RETIRACONTRIBUICAO(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo);
 
+ListaGen* INSERELINK(ListaGen *lista, char *pagOrigem, char *pagDestino);
+
 void FIM(ListaGen *editores, ListaGen *paginas);
 
 #endif
 
 /*
+escreverLog                 OK!
 INSEREPAGINA                OK!
 RETIRAPAGINA                OK!
 INSEREEDITOR                OK!

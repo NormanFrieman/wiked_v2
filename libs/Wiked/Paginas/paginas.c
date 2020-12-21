@@ -36,6 +36,7 @@ static void destroiPagina(void *item){
 
     liberaComplemento(pag->contribuicoes);
     liberaComplemento(pag->historico);
+    liberaComplemento(pag->links);
 
     free(pag->nome);
     free(pag->outfile);
@@ -45,7 +46,7 @@ static void destroiPagina(void *item){
 
 ListaGen* inserePagina(ListaGen *lista, char *pagina, char *arquivo){
     if(verificaLista(lista, comparaPagina, pagina) != NULL){
-        printf("ERROR: PAGINA %s JA EXISTE\n", pagina);
+        escreverLog("ERROR: PAGINA JA EXISTE:", pagina, NULL);
         return lista;
     }
 
@@ -67,7 +68,7 @@ ListaGen* inserePagina(ListaGen *lista, char *pagina, char *arquivo){
 
 ListaGen* retiraPagina(ListaGen *lista, char *pagina){
     if(verificaLista(lista, comparaPagina, pagina) == NULL){
-        printf("ERROR: PAGINA %s NAO EXISTE\n", pagina);
+        escreverLog("ERROR: PAGINA NAO EXISTE:", pagina, NULL);
         return lista;
     }
 
@@ -82,12 +83,12 @@ ListaGen* retiraPagina(ListaGen *lista, char *pagina){
 ListaGen* insereContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo){
     Pagina *pag = verificaLista(lista, comparaPagina, pagina);
     if(pag == NULL){
-        printf("ERROR: PAGINA %s NAO EXISTE\n", pagina);
+        escreverLog("ERROR: PAGINA NAO EXISTE:", pagina, NULL);
         return lista;
     }
 
     if(verificaEditor(editores, editor) == 0){
-        printf("ERROR: EDITOR %s NAO EXISTE\n", editor);
+        escreverLog("ERROR: EDITOR NAO EXISTE:", editor, NULL);
         return 0;
     }
 
@@ -100,16 +101,34 @@ ListaGen* insereContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, 
 ListaGen* retiraContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo){
     Pagina *pag = verificaLista(lista, comparaPagina, pagina);
     if(pag == NULL){
-        printf("ERROR: PAGINA %s NAO EXISTE\n", pagina);
+        escreverLog("ERROR: PAGINA NAO EXISTE:", pagina, NULL);
         return lista;
     }
 
     if(verificaEditor(editores, editor) == 0){
-        printf("ERROR: EDITOR %s NAO EXISTE\n", editor);
+        escreverLog("ERROR: EDITOR NAO EXISTE:", editor, NULL);
         return 0;
     }
 
     pag->contribuicoes = retiraComplemento(pag->contribuicoes, pagina, arquivo, editor, 0);
+
+    return lista;
+}
+
+ListaGen* insereLink(ListaGen *lista, char *pagOrigem, char *pagDestino){
+    Pagina *pagOri = verificaLista(lista, comparaPagina, pagOrigem);
+    if(pagOri == NULL){
+        escreverLog("ERROR: PAGINA ORIGEM NAO EXISTE:", pagOrigem, NULL);
+        return lista;
+    }
+
+    Pagina *pagDest = verificaLista(lista, comparaPagina, pagDestino);
+    if(pagDest == NULL){
+        escreverLog("ERROR: PAGINA DESTINO NAO EXISTE:", pagDestino, NULL);
+        return lista;
+    }
+
+    pagOri->links = insereComplemento(pagOri->links, NULL, pagOrigem, pagDestino, 2);
 
     return lista;
 }

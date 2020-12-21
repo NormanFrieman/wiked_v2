@@ -23,10 +23,20 @@ ListaGen* RETIRAPAGINA(ListaGen *lista, char *pagina){
 
 ListaGen* INSERECONTRIBUICAO(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo){
     lista = insereContribuicao(lista, editores, pagina, editor, arquivo);
+
+    return lista;
 }
 
 ListaGen* RETIRACONTRIBUICAO(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo){
     lista = retiraContribuicao(lista, editores, pagina, editor, arquivo);
+
+    return lista;
+}
+
+ListaGen* INSERELINK(ListaGen *lista, char *pagOrigem, char *pagDestino){
+    lista = insereLink(lista, pagOrigem, pagDestino);
+
+    return lista;
 }
 
 void FIM(ListaGen *editores, ListaGen *paginas){

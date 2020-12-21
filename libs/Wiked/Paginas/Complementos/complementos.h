@@ -16,4 +16,6 @@ ListaGen* retiraComplemento(ListaGen *lista, char *pagina, char *nome, char *inf
 
 void liberaComplemento(ListaGen *lista);
 
+void escreverLog(char *mensagem, char *str1, char *str2);
+
 #endif

@@ -12,6 +12,8 @@ ListaGen* insereContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, 
 
 ListaGen* retiraContribuicao(ListaGen *lista, ListaGen *editores, char *pagina, char *editor, char *arquivo);
 
+ListaGen* insereLink(ListaGen *lista, char *pagOrigem, char *pagDestino);
+
 void liberaPagina(ListaGen *lista);
 
 #endif

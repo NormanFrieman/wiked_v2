@@ -20,7 +20,7 @@ static ListaGen* insereContrib(ListaGen *lista, char *pagina, char *nome, char *
         lista = criaLista();
 
     if(insereItem(lista, nome, info, 0) == 0)
-        printf("ERROR: CONTRIBUICAO %s JA EXISTE NA PAGINA %s\n", nome, pagina);
+        escreverLog("ERROR: CONTRIBUICAO JA EXISTE NA PAGINA:", nome, pagina);
     
     else{
         printf("Contribuicoes em %s\n", pagina);
@@ -32,10 +32,10 @@ static ListaGen* insereContrib(ListaGen *lista, char *pagina, char *nome, char *
 static ListaGen* retiraContrib(ListaGen *lista, char *pagina, char *nome, char *info){
     int condition = retiraItem(lista, nome, info, 1);
     if(condition == 0)
-        printf("ERROR: CONTRIBUICAO %s NAO EXISTE NA PAGINA %s\n", nome, pagina);
+        escreverLog("ERROR: CONTRIBUICAO NAO EXISTE NA PAGINA:", nome, pagina);
     
     else if(condition == -1)
-        printf("ERROR: EDITOR %s NAO TEM PERMISSAO PARA REMOVER A CONTRIBUICAO %s\n", info, nome);
+        escreverLog("ERROR: EDITOR NAO TEM PERMISSAO PARA REMOVER A CONTRIBUICAO:", info, nome);
     
     else{
         printf("Contribuicoes em %s\n", pagina);
@@ -55,10 +55,21 @@ static ListaGen* insereHist(ListaGen *lista, char *pagina, char *nome, char *inf
     
     return lista;
 }
-static ListaGen* insereLink(ListaGen *lista, char *nome, char *info){
+static ListaGen* insereL(ListaGen *lista, char *nome, char *info){
+    if(lista == NULL)
+        lista = criaLista();
+    
+    if(insereItem(lista, nome, info, 0) == 0)
+        escreverLog("ERROR: LINK JA EXISTE NA PAGINA:", nome, NULL);
+    
+    else{
+        printf("Links em %s\n", nome);
+        imprimeItens(lista);
+    }
+
     return lista;
 }
-static ListaGen* retiraLink(ListaGen *lista, char *nome, char *info){
+static ListaGen* retiraL(ListaGen *lista, char *nome, char *info){
     return lista;
 }
 // ===============  ===============
@@ -76,7 +87,7 @@ ListaGen* insereComplemento(ListaGen *lista, char *pagina, char *nome, char *inf
         lista = insereHist(lista, pagina, nome, info);
     
     else
-        lista = insereLink(lista, nome, info);
+        lista = insereL(lista, nome, info);
     
     return lista; 
 }
@@ -86,10 +97,31 @@ ListaGen* retiraComplemento(ListaGen *lista, char *pagina, char *nome, char *inf
         lista = retiraContrib(lista, pagina, nome, info);
     
     else
-        lista = retiraLink(lista, nome, info);
+        lista = retiraL(lista, nome, info);
 }
 
 void liberaComplemento(ListaGen *lista){
     destroiGenStruct(lista);
+}
+
+void escreverLog(char *mensagem, char *str1, char *str2){
+    FILE *logs = fopen("Output/log.txt", "a");
+
+    if(logs == NULL){
+        printf("ERROR: NAO FOI POSSIVEL ABRIR O ARQUIVO log.txt\n");
+    }else{
+        if(str1 == NULL && str2 == NULL){
+            fprintf(logs, "%s\n", mensagem);
+            printf("***** %s *****\n", mensagem);
+        }else if(str1 != NULL && str2 == NULL){
+            fprintf(logs, "%s %s\n", mensagem, str1);
+            printf("***** %s %s *****\n", mensagem, str1);
+        }else{
+            fprintf(logs, "%s %s para %s\n", mensagem, str1, str2);
+            printf("***** %s %s para %s *****\n", mensagem, str1, str2);
+        }
+
+        fclose(logs);
+    }
 }
 // ===============  ===============
