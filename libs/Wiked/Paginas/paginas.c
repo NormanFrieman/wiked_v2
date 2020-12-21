@@ -4,6 +4,7 @@
 #include "paginas.h"
 #include "../Editores/editor.h"
 #include "Complementos/complementos.h"
+#include "GenStruct/genStruct.h"
 
 typedef struct pagina Pagina;
 
@@ -28,6 +29,14 @@ static int comparaPagina(void *item1, void *item2){
 
     if(strcmp(pag->nome, key) == 0)
         return 1;
+
+    return 0;
+}
+static int removeLink(void *pagVerif, void *pagRem){
+    Pagina *pag = (Pagina *)pagVerif;
+    char *nome = (char *)pagRem;
+    
+    retiraItem(pag->links, nome, NULL, 0);
 
     return 0;
 }
@@ -73,6 +82,8 @@ ListaGen* retiraPagina(ListaGen *lista, char *pagina){
     }
 
     lista = retiraLista(lista, comparaPagina, destroiPagina, pagina);
+
+    verificaLista(lista, removeLink, pagina);
 
     printf("Paginas:\n");
     imprimeLista(lista, imprimePagina);

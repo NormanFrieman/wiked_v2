@@ -62,6 +62,9 @@ ListaGen* retiraLista(ListaGen *lista, int (*comparacao)(void *, void *), void (
 }
 
 void* verificaLista(ListaGen *lista, int (*comparacao)(void *, void *), void *key){
+    if(lista == NULL)
+        return NULL;
+    
     Celula *p = lista->Prim;
     Celula *ant = NULL;
     

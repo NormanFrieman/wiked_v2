@@ -68,6 +68,7 @@ int insereItem(ListaGen *lista, char *nome, char *info, int ignore){
 // return -1 -> nao possui permissao
 int retiraItem(ListaGen *lista, char *nome, char *info, int verificaInfo){
     Generic *gen = verificaLista(lista, comparaNome, nome);
+    
     if(gen == NULL)
         return 0;
     
