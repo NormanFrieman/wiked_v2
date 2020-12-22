@@ -16,7 +16,11 @@ ListaGen* insereLink(ListaGen *lista, char *pagOrigem, char *pagDestino);
 
 ListaGen* retiraLink(ListaGen *lista, char *pagOrigem, char *pagDestino);
 
-void escrevePagina(ListaGen *lista, char *pagina);
+void escrevePagina(ListaGen *lista, void *page, char *pagina, int condition);
+
+void escreveWiked(ListaGen *lista);
+
+void caminho(ListaGen *lista, char *pagOrigem, char *pagDestino);
 
 void liberaPagina(ListaGen *lista);
 

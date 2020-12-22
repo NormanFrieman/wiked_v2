@@ -20,6 +20,10 @@ ListaGen* RETIRALINK(ListaGen *lista, char *pagOrigem, char *pagDestino);
 
 void IMPRIMEPAGINA(ListaGen *lista, char *pagina);
 
+void IMPRIMEWIKED(ListaGen *lista);
+
+void CAMINHO(ListaGen *lista, char *pagOrigem, char *pagDestino);
+
 void FIM(ListaGen *editores, ListaGen *paginas);
 
 #endif
@@ -34,7 +38,7 @@ RETIRACONTRIBUICAO          OK!
 INSERELINK                  OK!
 RETIRALINK                  OK!
 CAMINHO
-IMPRIMEPAGINA
-IMPRIMEWIKED
+IMPRIMEPAGINA               OK!
+IMPRIMEWIKED                OK!
 FIM                         OK!
 */

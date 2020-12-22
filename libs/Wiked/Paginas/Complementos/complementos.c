@@ -71,7 +71,7 @@ static ListaGen* insereL(ListaGen *lista, char *nome, char *info){
 }
 static ListaGen* retiraL(ListaGen *lista, char *nome, char *info){
     int condition = retiraItem(lista, info, nome, 0);
-    printf("%s\n", nome);
+
     if(condition == 0)
         escreverLog("ERROR: LINK NAO EXISTE ENTRE ESSAS PAGINAS:", nome, info);
 
@@ -114,7 +114,7 @@ void escreveComplemento(void *gen, FILE *file, int code){
     Generic *genStr = (Generic *)gen;
 
     if(code == 0)
-        fprintf(file, "%s %s\n", retornaNome(genStr), retornaInfo(genStr));
+        fprintf(file, "-------- %s (%s) --------\n\n", retornaNome(genStr), retornaInfo(genStr));
     
     else if(code == 1)
         fprintf(file, "%s %s\n", retornaInfo(genStr), retornaNome(genStr));

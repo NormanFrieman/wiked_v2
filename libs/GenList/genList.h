@@ -13,6 +13,8 @@ ListaGen* retiraLista(ListaGen *lista, int (*comparacao)(void *, void *), void (
 
 void* verificaLista(ListaGen *lista, int (*comparacao)(void *, void *), void *key);
 
+void* verificaListaPorInt(ListaGen *lista, int key);
+
 void imprimeLista(ListaGen *lista, void (*imprime)(void *));
 
 void liberaLista(ListaGen *lista, void (*liberaItem)(void *));

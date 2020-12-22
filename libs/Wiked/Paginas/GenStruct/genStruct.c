@@ -66,7 +66,7 @@ int insereItem(ListaGen *lista, char *nome, char *info, int ignore){
 // return -1 -> nao possui permissao
 int retiraItem(ListaGen *lista, char *nome, char *info, int verificaInfo){
     Generic *gen = verificaLista(lista, comparaNome, nome);
-    
+
     if(gen == NULL)
         return 0;
     
@@ -79,11 +79,29 @@ int retiraItem(ListaGen *lista, char *nome, char *info, int verificaInfo){
     return 1;
 }
 
+char* verificaItem(ListaGen *lista, char *key){
+    Generic *gen = verificaLista(lista, comparaNome, key);
+
+    if(gen == NULL)
+        return NULL;
+    
+    return gen->nome;
+}
+
 char* retornaNome(Generic *gen){
     return gen->nome;
 }
 
 char* retornaInfo(Generic *gen){
+    return gen->info;
+}
+
+char* retornaInfoPorInt(ListaGen *lista, int key){
+    Generic *gen = verificaListaPorInt(lista, key);
+    
+    if(gen == NULL)
+        return NULL;
+
     return gen->info;
 }
 

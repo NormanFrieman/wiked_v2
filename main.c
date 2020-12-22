@@ -87,6 +87,23 @@ void ImprimePagina(ListaGen *paginas, FILE *file){
     IMPRIMEPAGINA(paginas, pagina);
 }
 
+void ImprimeWiked(ListaGen *paginas, FILE *file){
+    printf("\n---> IMPRIMEWIKED\n");
+    
+    IMPRIMEWIKED(paginas);
+}
+
+void Caminho(ListaGen *paginas, FILE *file){
+    char pagOrigem[60], pagDestino[60];
+
+    fscanf(file, "%s", pagOrigem);
+    fscanf(file, "%s", pagDestino);
+
+    printf("\n---> CAMINHO %s %s\n", pagOrigem, pagDestino);
+    
+    CAMINHO(paginas, pagOrigem, pagDestino);
+}
+
 void Fim(ListaGen *paginas, ListaGen *editores){
     printf("\n---> FIM\n");
     FIM(editores, paginas);
@@ -96,7 +113,7 @@ void Fim(ListaGen *paginas, ListaGen *editores){
 
 
 // ================= INTERPRETACAO DOS COMANDOS =================
-char* setInput(char *input){
+char* defineInput(char *input){
     char aux[60] = "Input/";
     char *path;
 
@@ -147,6 +164,12 @@ void interpretarComando(ListaGen *paginas, ListaGen *editores, char *url){
             else if(strcmp("IMPRIMEPAGINA", comand) == 0)
                 ImprimePagina(paginas, file);
 
+            else if(strcmp("IMPRIMEWIKED", comand) == 0)
+                ImprimeWiked(paginas, file);
+
+            else if(strcmp("CAMINHO", comand) == 0)
+                Caminho(paginas, file);
+
             else if(strcmp("FIM", comand) == 0){
                 Fim(paginas, editores);
                 break;
@@ -176,7 +199,7 @@ int main(int argc, char *argv[]){
         return 0;
     }
     
-    url = setInput(argv[1]);
+    url = defineInput(argv[1]);
     interpretarComando(paginas, editores, url);
 
     free(url);

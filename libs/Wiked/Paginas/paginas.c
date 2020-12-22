@@ -51,6 +51,20 @@ static void destroiPagina(void *item){
     free(pag->outfile);
     free(pag);
 }
+static void destroiChar(void *item){
+    char *str = (char *)item;
+
+    free(item);
+}
+char* setInput(char *input){
+    char aux[60] = "Input/";
+    char *path;
+
+    strcat(aux, input);
+    path = strdup(aux);
+
+    return path;
+}
 static char* setOutput(char *output){
     char aux[60] = "Output/";
     char *path;
@@ -62,12 +76,79 @@ static char* setOutput(char *output){
 }
 static int writeContrib(void *gen, void *file){
     escreveComplemento(gen, file, 0);
+
+    char letra;
+    char *url = setInput(retornaNome(gen));
+    FILE *inputContrib = fopen(url, "r");
+
+    if(inputContrib == NULL)
+        escreverLog("ERROR: IMPRESSAO FALHOU NA CONTRIBUICAO:", retornaNome(gen), NULL);
+    
+    else{
+        while(!feof(inputContrib)){
+            fscanf(inputContrib, "%c", &letra);
+            fprintf(file, "%c", letra);
+        }
+
+        fprintf(file, "\n\n");
+        fclose(inputContrib);
+    }
+
+    free(url);
+    return 0;
 }
 static int writeHist(void *gen, void *file){
     escreveComplemento(gen, file, 1);
+
+    return 0;
 }
 static int writeLink(void *gen, void *file){
     escreveComplemento(gen, file, 2);
+
+    return 0;
+}
+static int printWiked(void *pag, void *item){
+    Pagina *page = (Pagina *)pag;
+    
+    escrevePagina(NULL, page, page->nome, 1);
+
+    return 0;
+}
+static int verificaRastro(void *item1, void *item2){
+    char *str1 = (char *)item1;
+    char *str2 = (char *)item2;
+
+    if(strcmp(str1, str2) == 0)
+        return 1;
+    
+    return 0;
+}
+static int path(ListaGen *lista, ListaGen *links, ListaGen *rastro, char *pagDestino){
+    int code = 0, a = 0;
+    char *pagTest = retornaInfoPorInt(links, a);
+
+    while(pagTest != NULL){
+        char *test = verificaLista(rastro, verificaRastro, pagTest);
+
+        if(test == NULL){
+            if(strcmp(pagTest, pagDestino) == 0)
+                return 1;
+            
+            char *aux = strdup(pagTest);
+            rastro = insereLista(rastro, aux);
+            Pagina *page = verificaLista(lista, comparaPagina, pagTest);
+
+            code = path(lista, page->links, rastro, pagDestino);
+
+            if(code == 1)
+                return 1;
+        }
+
+        a++;
+        pagTest = retornaInfoPorInt(links, a);
+    }
+
+    return 0;
 }
 // ===============  ===============
 
@@ -175,15 +256,22 @@ ListaGen* retiraLink(ListaGen *lista, char *pagOrigem, char *pagDestino){
         return lista;
     }
 
-    pagOri->links = retiraComplemento(pagOri->links, NULL, pagOrigem, pagDestino, 2);
+    pagOri->links = retiraComplemento(pagOri->links, NULL, pagDestino, pagDest->outfile, 2);
 
     return lista;
 }
 
-void escrevePagina(ListaGen *lista, char *pagina){
-    Pagina *pag = verificaLista(lista, comparaPagina, pagina);
+void escrevePagina(ListaGen *lista, void *page, char *pagina, int condition){
+    Pagina *pag;
+
+    if(condition == 0)
+        pag = verificaLista(lista, comparaPagina, pagina);
+    
+    else
+        pag = (Pagina *)page;
+
     if(pag == NULL)
-        escreverLog("ERROR: PAGINA ORIGEM NAO EXISTE:", pagina, NULL);
+        escreverLog("ERROR: PAGINA NAO EXISTE:", pagina, NULL);
     
     else{
         char *path = setOutput(pag->outfile);
@@ -208,6 +296,34 @@ void escrevePagina(ListaGen *lista, char *pagina){
         }
 
         free(path);
+    }
+}
+
+void escreveWiked(ListaGen *lista){
+    verificaLista(lista, printWiked, NULL);
+}
+
+void caminho(ListaGen *lista, char *pagOrigem, char *pagDestino){
+    Pagina *pagOri = verificaLista(lista, comparaPagina, pagOrigem);
+    Pagina *pagDest = verificaLista(lista, comparaPagina, pagDestino);
+    
+    if(pagOri == NULL)
+        escreverLog("ERROR: PAGINA ORIGEM NAO EXISTE:", pagOrigem, NULL);
+
+    else if(pagDest == NULL)
+        escreverLog("ERROR: PAGINA DESTINO NAO EXISTE:", pagDestino, NULL);
+
+    else{
+        ListaGen *rastro = criaLista();
+        
+        int verif = path(lista, pagOri->links, rastro, pagDestino);
+        liberaLista(rastro, destroiChar);
+
+        if(verif == 1)
+            escreverLog("HA CAMINHO ENTRE AS PAGINAS:", pagOrigem, pagDestino);
+        
+        else
+            escreverLog("NAO HA CAMINHO ENTRE AS PAGINAS:", pagOrigem, pagDestino);
     }
 }
 

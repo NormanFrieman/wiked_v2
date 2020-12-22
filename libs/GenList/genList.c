@@ -79,6 +79,26 @@ void* verificaLista(ListaGen *lista, int (*comparacao)(void *, void *), void *ke
     return p->item;
 }
 
+void* verificaListaPorInt(ListaGen *lista, int key){
+    if(lista == NULL)
+        return NULL;
+    
+    Celula *p = lista->Prim;
+    Celula *ant = NULL;
+    int a = 0;
+    
+    while(p != NULL && a != key){
+        ant = p;
+        p = p->prox;
+        a++;
+    }
+    
+    if(p == NULL)
+        return NULL;
+
+    return p->item;
+}
+
 void imprimeLista(ListaGen *lista, void (*imprime)(void *)){
     Celula *p = lista->Prim;
 
