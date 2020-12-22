@@ -4,8 +4,6 @@
 #include "genStruct.h"
 
 // GenStruct = Estrutura Genérica
-typedef struct generic Generic;
-
 struct generic{
     char *nome;
     char *info;
@@ -79,6 +77,14 @@ int retiraItem(ListaGen *lista, char *nome, char *info, int verificaInfo){
     lista = retiraLista(lista, comparaNome, destroiItem, nome);
 
     return 1;
+}
+
+char* retornaNome(Generic *gen){
+    return gen->nome;
+}
+
+char* retornaInfo(Generic *gen){
+    return gen->info;
 }
 
 void imprimeItens(ListaGen *lista){

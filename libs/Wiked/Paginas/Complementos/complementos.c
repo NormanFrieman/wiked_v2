@@ -110,6 +110,19 @@ ListaGen* retiraComplemento(ListaGen *lista, char *pagina, char *nome, char *inf
         lista = retiraL(lista, nome, info);
 }
 
+void escreveComplemento(void *gen, FILE *file, int code){
+    Generic *genStr = (Generic *)gen;
+
+    if(code == 0)
+        fprintf(file, "%s %s\n", retornaNome(genStr), retornaInfo(genStr));
+    
+    else if(code == 1)
+        fprintf(file, "%s %s\n", retornaInfo(genStr), retornaNome(genStr));
+    
+    else
+        fprintf(file, "%s %s\n", retornaInfo(genStr), retornaNome(genStr));
+}
+
 void liberaComplemento(ListaGen *lista){
     destroiGenStruct(lista);
 }

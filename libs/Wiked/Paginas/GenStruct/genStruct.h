@@ -4,9 +4,15 @@
 #include <stdio.h>
 #include "../../../GenList/genList.h"
 
+typedef struct generic Generic;
+
 int insereItem(ListaGen *lista, char *nome, char *info, int ignore);
 
 int retiraItem(ListaGen *lista, char *nome, char *info, int verificaInfo);
+
+char* retornaNome(Generic *gen);
+
+char* retornaInfo(Generic *gen);
 
 void imprimeItens(ListaGen *lista);
 

@@ -18,6 +18,8 @@ ListaGen* INSERELINK(ListaGen *lista, char *pagOrigem, char *pagDestino);
 
 ListaGen* RETIRALINK(ListaGen *lista, char *pagOrigem, char *pagDestino);
 
+void IMPRIMEPAGINA(ListaGen *lista, char *pagina);
+
 void FIM(ListaGen *editores, ListaGen *paginas);
 
 #endif

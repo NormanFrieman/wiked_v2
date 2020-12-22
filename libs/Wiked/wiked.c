@@ -45,6 +45,10 @@ ListaGen* RETIRALINK(ListaGen *lista, char *pagOrigem, char *pagDestino){
     return lista;
 }
 
+void IMPRIMEPAGINA(ListaGen *lista, char *pagina){
+    escrevePagina(lista, pagina);
+}
+
 void FIM(ListaGen *editores, ListaGen *paginas){
     liberaEditores(editores);
     liberaPagina(paginas);

@@ -77,6 +77,16 @@ void RetiraLink(ListaGen *paginas, FILE *file){
     paginas = RETIRALINK(paginas, pagOrigem, pagDestino);
 }
 
+void ImprimePagina(ListaGen *paginas, FILE *file){
+    char pagina[60];
+
+    fscanf(file, "%s", pagina);
+
+    printf("\n---> IMPRIMEPAGINA %s\n", pagina);
+    
+    IMPRIMEPAGINA(paginas, pagina);
+}
+
 void Fim(ListaGen *paginas, ListaGen *editores){
     printf("\n---> FIM\n");
     FIM(editores, paginas);
@@ -133,6 +143,9 @@ void interpretarComando(ListaGen *paginas, ListaGen *editores, char *url){
 
             else if(strcmp("RETIRALINK", comand) == 0)
                 RetiraLink(paginas, file);
+            
+            else if(strcmp("IMPRIMEPAGINA", comand) == 0)
+                ImprimePagina(paginas, file);
 
             else if(strcmp("FIM", comand) == 0){
                 Fim(paginas, editores);

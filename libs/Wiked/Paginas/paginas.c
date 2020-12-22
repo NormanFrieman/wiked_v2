@@ -51,6 +51,24 @@ static void destroiPagina(void *item){
     free(pag->outfile);
     free(pag);
 }
+static char* setOutput(char *output){
+    char aux[60] = "Output/";
+    char *path;
+
+    strcat(aux, output);
+    path = strdup(aux);
+
+    return path;
+}
+static int writeContrib(void *gen, void *file){
+    escreveComplemento(gen, file, 0);
+}
+static int writeHist(void *gen, void *file){
+    escreveComplemento(gen, file, 1);
+}
+static int writeLink(void *gen, void *file){
+    escreveComplemento(gen, file, 2);
+}
 // ===============  ===============
 
 ListaGen* inserePagina(ListaGen *lista, char *pagina, char *arquivo){
@@ -139,7 +157,7 @@ ListaGen* insereLink(ListaGen *lista, char *pagOrigem, char *pagDestino){
         return lista;
     }
 
-    pagOri->links = insereComplemento(pagOri->links, NULL, pagOrigem, pagDestino, 2);
+    pagOri->links = insereComplemento(pagOri->links, NULL, pagDestino, pagDest->outfile, 2);
 
     return lista;
 }
@@ -160,6 +178,37 @@ ListaGen* retiraLink(ListaGen *lista, char *pagOrigem, char *pagDestino){
     pagOri->links = retiraComplemento(pagOri->links, NULL, pagOrigem, pagDestino, 2);
 
     return lista;
+}
+
+void escrevePagina(ListaGen *lista, char *pagina){
+    Pagina *pag = verificaLista(lista, comparaPagina, pagina);
+    if(pag == NULL)
+        escreverLog("ERROR: PAGINA ORIGEM NAO EXISTE:", pagina, NULL);
+    
+    else{
+        char *path = setOutput(pag->outfile);
+        FILE *out = fopen(path, "w");
+
+        if(out == NULL)
+            escreverLog("ERRO: criacao de um novo txt inconcluido:", pagina, NULL);
+        
+        else{
+            fprintf(out, "%s\n\n", pag->nome);
+
+            fprintf(out, "--> Historico de contribuicoes\n");
+            verificaLista(pag->historico, writeHist, out);
+
+            fprintf(out, "\n--> Links\n");
+            verificaLista(pag->links, writeLink, out);
+
+            fprintf(out, "\n--> Textos\n\n");
+            verificaLista(pag->contribuicoes, writeContrib, out);
+
+            fclose(out);
+        }
+
+        free(path);
+    }
 }
 
 void liberaPagina(ListaGen *lista){

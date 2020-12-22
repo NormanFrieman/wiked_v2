@@ -16,6 +16,8 @@ ListaGen* insereLink(ListaGen *lista, char *pagOrigem, char *pagDestino);
 
 ListaGen* retiraLink(ListaGen *lista, char *pagOrigem, char *pagDestino);
 
+void escrevePagina(ListaGen *lista, char *pagina);
+
 void liberaPagina(ListaGen *lista);
 
 #endif
